@@ -1,5 +1,3 @@
-![MasterHead](https://i.pinimg.com/originals/15/e7/e3/15e7e300166c962d3b8a22f60b5cac9e.gif)
-
 <h1 align="center">Movement Class Documentation</h1>
 <h3 align="center">Control Character Movement in Unity</h3>
 
@@ -191,5 +189,3 @@
 </ul>
 </details>
 
-<h2 align="center">Movement File</h2>
-<p align="center"><a href="movement.md">Click here to view the Movement file</a></p>
