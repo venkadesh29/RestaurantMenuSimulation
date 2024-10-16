@@ -42,6 +42,13 @@
 </ul>
 </details>
 
+<h2>Code Insights</h2>
+<details>
+<summary>Click to expand</summary>
+<ul>
+    <li> <b> </b><a href="https://github.com/venkadesh29/RestaurantMenuSimulation/blob/main/Movement.md">Movement File</a></b></p></li>
+</ul>
+</details>
 
 <h2>Conclusion</h2>
 <p>This Restaurant Simulation Project aims to provide an immersive dining experience through interactive gameplay elements, making it a unique and engaging simulation.</p>
