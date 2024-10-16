@@ -158,34 +158,38 @@
 </ul>
 </details>
 
-<h2>Program Flow</h2>
+<h2>Mechanics</h2>
 <details>
 <summary>Click to expand</summary>
-<p><strong>Initialization:</strong></p>
 <ul>
-    <li>The <code>Start()</code> method is called when the game starts, initializing components and locking the cursor.</li>
-</ul>
-<p><strong>Game Loop:</strong></p>
-<ul>
-    <li>The <code>Update()</code> method runs every frame, checking for input and managing state changes.</li>
-    <li>Calls <code>raycast()</code> to check for chair interactions.</li>
-    <li>Calls <code>movement()</code> to handle character movement.</li>
-</ul>
-<p><strong>Movement Handling:</strong></p>
-<ul>
-    <li>In <code>movement()</code>, the state of the character (sitting or standing) determines how movement is processed.</li>
-    <li>If the character is sitting, <code>HandleSittingMovement()</code> prevents movement.</li>
-    <li>If standing, <code>HandleRegularMovement()</code> processes user input and updates movement and animation states.</li>
-</ul>
-<p><strong>Chair Detection and Sitting:</strong></p>
-<ul>
-    <li><code>raycast()</code> detects chairs in front of the character and triggers <code>detectedChair()</code> when a chair is found.</li>
-    <li>If the user presses 'F', the <code>RotateToSit()</code> coroutine is called, transitioning the character to a sitting state.</li>
-</ul>
-<p><strong>Standing Up:</strong></p>
-<ul>
-    <li>When the character is sitting and movement keys are pressed, <code>StandUp()</code> is called.</li>
-    <li>It waits for a set duration before allowing movement again via the <code>WaitForMovement()</code> coroutine.</li>
+    <li><strong>Sitting Animation:</strong>
+        <p>The sitting animation is triggered when the player interacts with a chair by pressing 'F'. The character rotates towards the chair using the <code>RotateToSit()</code> coroutine. The character's rotation is handled gradually to provide a smooth transition:</p>
+        <pre><code>while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            yield return null; // Wait for the next frame
+        }</code></pre>
+        <p>This rotation logic ensures the character is correctly oriented towards the chair before triggering any animations.</p>
+    </li>
+    <li><strong>Movement Controls:</strong>
+        <p>The character movement is controlled via Unity's input system. Movement is calculated based on the horizontal and vertical input axes. The character is prevented from moving while sitting, ensuring a realistic experience:</p>
+        <pre><code>if (!isSitting) {
+    float horizontal = Input.GetAxis("Horizontal");
+    float vertical = Input.GetAxis("Vertical");
+    moveDirection = new Vector3(horizontal, 0, vertical).normalized;
+}</code></pre>
+        <p>This approach allows for standard WASD movement in the game.</p>
+    </li>
+    <li><strong>Raycasting for Chairs:</strong>
+        <p>The raycasting mechanism is implemented to detect chairs in front of the character:</p>
+        <pre><code>if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, rayLength)) {
+    if (hit.collider.CompareTag("Chair")) {
+        detectedChair();
+    }
+}</code></pre>
+        <p>This checks if the object in front of the player has the tag "Chair," facilitating easy interactions.</p>
+    </li>
 </ul>
 </details>
 
+<h2>Conclusion</h2>
+<p>This Movement class provides a robust system for controlling character movement and interactions in a Unity 3D environment. It supports both walking and sitting mechanics, allowing for dynamic gameplay experiences.</p>
