@@ -1,0 +1,4 @@
+repository "RestaurantMenuSimulation@venkadeshachu@cloud"
+  path "/"
+    br "/main"
+    co "/main"
